@@ -18,9 +18,9 @@ export const calculateShortestPath = (positions: Position[], input: CalculateSho
     }
 
     const selectedPositions = input.products.map(productId => {
-        const productPositions = positions.filter(p => p.productId === productId);
+        const productPositions = positions.filter(p => p.productId === productId && p.quantity > 0);
         if (!productPositions.length) {
-            throw new Error(`No positions found for product ${productId}`);
+            throw new Error(`No positions found with available quantity for product ${productId}`);
         }
         
         return productPositions.reduce((nearest, current) => {
